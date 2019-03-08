@@ -64,7 +64,7 @@ class ViewController: UITableViewController {
         return titleString
     }
     
-    private func showTutorial(_ which: Int) {
+    func showTutorial(_ which: Int) {
         if let url = URL(string: "https://www.hackingwithswift.com/read/\(which + 1)") {
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
@@ -139,7 +139,14 @@ class ViewController: UITableViewController {
     }
     
     private func deIndex(item: Int) {
-        
+        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: ["\(item)"]) { error in
+            if let error = error {
+                print("Deindex error: \(error.localizedDescription)")
+            } else {
+                print("Search item successfully removed!")
+            }
+        }
     }
+    
 }
 
